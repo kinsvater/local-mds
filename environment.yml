@@ -1,0 +1,13 @@
+name: local-mds
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+      - pandas
+      - duckdb
+      - dbt-duckdb
+      - metricflow
+      - streamlit
