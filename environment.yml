@@ -7,7 +7,8 @@ dependencies:
   - pip
   - pip:
       - pandas
+      - mimesis
       - duckdb
       - dbt-duckdb
-      - metricflow
       - streamlit
+      - metricflow==0.140.0

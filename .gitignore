@@ -1,2 +1,7 @@
 .idea
 data
+
+# from dbt package template
+target/
+dbt_packages/
+logs/
