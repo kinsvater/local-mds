@@ -1,0 +1,25 @@
+data_source:
+  name: orders
+  description: Master table customer orders.
+  sql_table: main_marts.fct_orders
+  identifiers:
+    - name: order_id
+      type: primary
+    - name: site_id
+      type: foreign
+      expr: deliver_to_site_id
+  measures:
+    - name: order_revenue_usd
+      description: The total order revenue in USD.
+      expr: order_price_usd
+      agg: sum
+  dimensions:
+    - name: order_type
+      type: categorical
+    - name: booked_date
+      type: time
+      type_params:
+        is_primary: true
+        time_granularity: day
+  mutability:
+    type: immutable

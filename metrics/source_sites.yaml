@@ -1,0 +1,15 @@
+data_source:
+  name: sites
+  description: Master table customer sites.
+  sql_table: main_marts.dim_sites
+  identifiers:
+    - name: site_id
+      type: primary
+    - name: account_id
+      type: foreign
+      expr: owner_account_id
+  dimensions:
+    - name: site_region
+      type: categorical
+  mutability:
+    type: immutable

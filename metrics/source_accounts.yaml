@@ -1,0 +1,12 @@
+data_source:
+  name: accounts
+  description: Master table customer accounts.
+  sql_table: main_marts.dim_accounts
+  identifiers:
+    - name: account_id
+      type: primary
+  dimensions:
+    - name: account_region
+      type: categorical
+  mutability:
+    type: immutable

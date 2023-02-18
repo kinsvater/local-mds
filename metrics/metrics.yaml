@@ -1,0 +1,5 @@
+metric:
+  name: order_revenue_usd
+  type: measure_proxy
+  type_params:
+    measure: order_revenue_usd
