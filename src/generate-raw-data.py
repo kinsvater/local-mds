@@ -1,9 +1,15 @@
+import logging
 from pathlib import Path
 
-import pandas as pd
-import numpy as np
-from mimesis import Generic
 import duckdb
+import numpy as np
+import pandas as pd
+from mimesis import Generic
+
+logging.basicConfig(
+    level=logging.INFO, datefmt='%H:%M:%S',
+    format='%(asctime)s-%(levelname)s-%(name)s::%(module)s|%(lineno)s:: %(message)s'
+)
 
 if __name__ == '__main__':
     faker = Generic(seed=1)
@@ -30,9 +36,10 @@ if __name__ == '__main__':
     orders['Type'] = np.random.choice(['Installation', 'Service', 'Parts'], num_orders, replace=True, p=[0.4, 0.3, 0.3])
     orders = orders.drop('_percent', axis=1)
 
-    fx_rates = pd.DataFrame({'Year': [2020, 2021, 2022, 2020, 2021],
+    fx_rates = pd.DataFrame({'Year': [2020, 2021, 2022, 2020, 2021, 2022],
                              'Currency': ['Euro', 'Euro', 'Euro', 'Pound Sterling', 'Pound Sterling', 'Pound Sterling'],
                              'Rate': [1.1, 1.2, 1.15, 1.3, 1.4, 1.2]})
+    logging.info('Synthetic data generated.')
 
     path_duck_db = Path(__file__).parent / '../data/data-mart.duckdb'
 
@@ -40,8 +47,11 @@ if __name__ == '__main__':
         path_duck_db.parent.mkdir()
 
     con = duckdb.connect(database=str(path_duck_db), read_only=False)
+    logging.info(f'Connection to {path_duck_db} established.')
 
     con.query("CREATE SCHEMA IF NOT EXISTS raw")
 
     for table_name in ('accounts', 'sites', 'orders', 'fx_rates'):
-        con.query(f"DROP TABLE IF EXISTS raw.{table_name}; CREATE TABLE raw.{table_name} AS SELECT * FROM {table_name}")
+        query = f"DROP TABLE IF EXISTS raw.{table_name}; CREATE TABLE raw.{table_name} AS SELECT * FROM {table_name}"
+        logging.info(query)
+        con.query(query=query)
