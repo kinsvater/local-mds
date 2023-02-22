@@ -13,6 +13,10 @@ data_source:
       description: The total order revenue in USD.
       expr: order_price_usd
       agg: sum
+    - name: order_profit_usd
+      description: The profit of orders in USD.
+      expr: order_price_usd - order_cost_usd
+      agg: sum
   dimensions:
     - name: order_type
       type: categorical

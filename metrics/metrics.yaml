@@ -3,3 +3,12 @@ metric:
   type: measure_proxy
   type_params:
     measure: order_revenue_usd
+---
+metric:
+  name: order_margin_percent
+  type: expr
+  type_params:
+    expr: (order_profit_usd / order_revenue_usd) * 100
+    measures:
+      - order_profit_usd
+      - order_revenue_usd
