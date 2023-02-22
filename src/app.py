@@ -11,7 +11,7 @@ def load_data(metric: str, granularity: str = 'month'):
                         dimensions=['site_id__site_region', f'metric_time__{granularity}'],
                         order=[f'metric_time__{granularity}']).result_df
 
-    data.columns = ['Period', 'Region', 'Revenue']
+    data.columns = ['Period', 'Region', metric]
     return data
 
 
@@ -23,7 +23,7 @@ choice_granularity = st.radio('Granularity', ('Month', 'Quarter', 'Year'))
 
 df = load_data(metric=choice_metric, granularity=choice_granularity.lower())
 
-chart = alt.Chart(df).mark_line().encode(x='Period', y='Revenue', color='Region')
+chart = alt.Chart(df).mark_line().encode(x='Period', y=choice_metric, color='Region')
 st.altair_chart(chart, use_container_width=True)
 
 st.write(df)
