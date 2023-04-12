@@ -53,6 +53,10 @@ mf query --metrics order_revenue_usd --dimensions metric_time__year,site_id__sit
 mf query --metrics order_revenue_usd --dimensions metric_time__year,site_id__account_id__account_region --order metric_time__year
 ```
 
+```bash
+mf query --metrics order_monthly_revenue_usd --dimensions booked_date
+```
+
 ## Try metricflow Python API inside a streamlit app
 
 ```bash

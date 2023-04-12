@@ -12,3 +12,11 @@ metric:
     measures:
       - order_profit_usd
       - order_revenue_usd
+---
+metric:
+  name: order_monthly_revenue_usd
+  type: cumulative
+  type_params:
+    measures:
+      - order_revenue_usd
+    grain_to_date: month
